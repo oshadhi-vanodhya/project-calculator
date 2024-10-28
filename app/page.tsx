@@ -62,7 +62,7 @@ export default function Page() {
 
       <div className="p-8">
         <h1
-          className="font-bold text-balance text-black tracking-tight mb-6 sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl m-4"
+          className="font-bold text-balance text-black tracking-tight mb-6 sm:text-3xl md:text-3xl lg:text-3xl xl:text-3.5xl m-4"
           style={{ color: '#352e9d' }}
         >
           Projects Dashboard
@@ -74,7 +74,7 @@ export default function Page() {
         >
           <h2
             id="statistics-heading"
-            className="text-xl font-bold mb-4 xl:text-3xl"
+            className="text-xl font-bold mb-4 xl:text-2xl"
           >
             Statistics
           </h2>
@@ -109,7 +109,7 @@ export default function Page() {
           <div className="mb-8 mt-4 ml-4">
             <h2
               id="delay-calculation-heading"
-              className="text-xl font-bold mb-8 xl:text-3xl"
+              className="text-xl font-bold mb-8 xl:text-2xl"
             >
               Calculate Project Delay
             </h2>
