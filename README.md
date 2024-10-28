@@ -19,6 +19,10 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Project Overview
 
-<img width="1421" alt="image" src="https://github.com/user-attachments/assets/cf131341-e447-494b-b598-9ec1ac9d83e8">
+![image](https://github.com/user-attachments/assets/a62480c1-d3ac-4359-b6e5-955f8cf03e1f)
 
-Download Video presentation here [https://github.com/oshadhi-vanodhya/project-calculator/blob/main/public/Project%20Dashboard.mov].
+
+### Download Video presentation here
+
+(https://github.com/user-attachments/assets/7f866637-ae3c-4720-9a06-1c080d9b3003)
+
