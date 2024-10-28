@@ -185,7 +185,7 @@ export default function Page() {
               className="p-3 px-6 bg-indigo-600 text-md font-semibold text-white rounded-md shadow-sm hover:ring hover:ring-indigo-600 hover:ring-2 hover:ring-offset-4 hover:ring-offset-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               aria-label="Calculate Delay"
             >
-              Calculate Delay
+            ⏰ Calculate Delay
             </button>
             <button
               type="button"
@@ -198,7 +198,7 @@ export default function Page() {
               className="p-3 px-6 bg-gray-50 text-md font-semibold text-gray rounded-md shadow-sm hover:ring hover:ring-gray-300 hover:ring-2 hover:ring-offset-4 hover:ring-offset-gray-50 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               aria-label="Clear Dates"
             >
-              Clear Dates
+            ✨ Clear Dates
             </button>
           </div>
 
