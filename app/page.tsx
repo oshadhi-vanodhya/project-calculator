@@ -106,14 +106,57 @@ export default function Page() {
           <div className="mb-8 mt-4 ml-4">
             <h2
               id="delay-calculation-heading"
-              className="text-xl font-bold mb-4"
+              className="text-xl font-bold mb-8"
             >
               Calculate Project Delay
             </h2>
+            <div className="flex flex-wrap space-x-4 mb-4 mt-4">
+
+
+              <div className="flex-initial w-full md:w-1/3 mb-4 mt-4">
+                <label htmlFor="project" className="block mb-2 text-sm font-semibold">
+                  Project
+                </label>
+                <select
+                  className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                  id="project"
+                  required
+                >
+                  <option value="Construction">Construction Stadium</option>
+                </select>
+              </div>
+
+              <div className="flex-initial w-full md:w-1/3 mb-4 mt-4">
+                <label htmlFor="subproject" className="block mb-2 text-sm font-semibold">
+                  Sub Project
+                </label>
+                <select
+                  className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                  id="subproject"
+                  required
+                >
+                  <option value="Execution">Execution</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex-initial w-full mb-8 mt-4 ">
+              <label htmlFor="task" className="block mb-2 text-sm font-semibold">
+                Task
+              </label>
+              <select
+                className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                id="task"
+                required
+              >
+                <option value="Signoff">Sign off</option>
+              </select>
+            </div>
+
+
 
             <DateInput
               id="start-date"
-              label="Start Date"
+              label="Planned Start Date"
               value={startDate}
               onChange={setStartDate}
               required
@@ -121,7 +164,7 @@ export default function Page() {
 
             <DateInput
               id="end-date"
-              label="End Date"
+              label="Actual Start Date"
               value={endDate}
               onChange={setEndDate}
               required
@@ -153,11 +196,10 @@ export default function Page() {
 
           {message && (
             <div
-              className={`flex space-x-4  mt-10 mb-12 ml-4 mr-4 justify-between  ${
-                isCalculated
-                  ? 'p-4  text-gray-900 bg-indigo-50'
-                  : 'p-0 w-3/4 text-red-600'
-              } rounded-xl`}
+              className={`flex space-x-4 mt-10 mb-12 ml-4 mr-4 justify-between ${isCalculated
+                ? 'p-4 text-gray-900 bg-indigo-50'
+                : 'p-0 w-3/4 text-red-600'
+                } rounded-xl`}
               role="alert"
               aria-live="polite"
             >
@@ -169,13 +211,13 @@ export default function Page() {
                   className="p-3 px-6 bg-indigo-100 border border-solid border-indigo-300 text-md font-semibold text-blue-800 rounded-md leading-6 shadow-sm hover:bg-indigo-50 hover:ring hover:ring-indigo-600 hover:ring-3 hover:ring-offset-4 hover:ring-offset-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   aria-label="View Updated Project Timeline"
                 >
-                  <span aria-hidden="true">✦</span> View Updated Project
-                  Timeline
+                  <span aria-hidden="true">✦</span> View Updated Project Timeline
                 </button>
               )}
             </div>
           )}
         </form>
+
       </div>
     </main>
   );
