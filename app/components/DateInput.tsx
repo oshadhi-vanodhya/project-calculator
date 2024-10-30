@@ -27,12 +27,13 @@ export default function DateInput({
           id={id}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="block flex-initial sm:w-screen md:w-1/2 lg:w-1/4 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          className="block  flex-initial sm:w-screen md:w-1/2 lg:w-1/4 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 focus:border-indigo-500 transition duration-150 ease-in-out"
           required={required}
           aria-required={required}
           aria-label={label}
         />
       </div>
+
     </div>
   );
 }
