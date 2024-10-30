@@ -1,60 +1,52 @@
 'use client';
 
-// Importing necessary React hooks and components
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navigation from './components/Navigation';
 import StatisticsCard from './components/StatisticsCard';
 import DateInput from './components/DateInput';
 import CustomDropdown from './components/Customdropdown';
+import EmailGenerator from './components/EmailGenerator';
 
-
-// Main function component for the page
 export default function Page() {
   const [message, setMessage] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [isCalculated, setIsCalculated] = useState(false); // Tracks if delay has been calculated
+  const [isCalculated, setIsCalculated] = useState(false);
   const [project, setProject] = useState('');
   const [subProject, setSubProject] = useState('');
   const [activity, setActivity] = useState('');
+  const [showEmailPanel, setShowEmailPanel] = useState(false);
 
-  const router = useRouter(); // Creating a router instance for navigation
+  const router = useRouter();
 
-  // Function to handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Convert string dates to Date objects
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    // Validation: Ensure start date is before end date
     if (!startDate || !endDate || start > end) {
       setMessage(
         '❌ The end date must be later than the start date. Please select a valid date range.'
       );
-      setIsCalculated(false); // Reset calculation state
+      setIsCalculated(false);
       return;
     }
 
-    // Validation: Ensure all required fields are filled
     if (!project || !subProject || !activity) {
       setMessage('❌ Please fill out all required fields.');
-      setIsCalculated(false); // Reset calculation state
+      setIsCalculated(false);
       return;
     }
 
-    // Calculate the difference between start and end dates
-    const timeDiff = end.getTime() - start.getTime(); // Time difference in milliseconds
-    const totalDaysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert to days
+    const timeDiff = end.getTime() - start.getTime();
+    const totalDaysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    // Break down the total days into years, months, and days
     const years = Math.floor(totalDaysDiff / 365);
     const months = Math.floor((totalDaysDiff % 365) / 30);
     const days = totalDaysDiff % 30;
 
-    // Message to display the delay
     let messageParts = [];
     if (years > 0)
       messageParts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
@@ -68,17 +60,14 @@ export default function Page() {
     setIsCalculated(true);
   };
 
-  // Function to navigate to the timeline page
   const handleViewTimeline = () => {
     router.push(`/gantt?startDate=${startDate}&endDate=${endDate}`);
   };
 
-  // Handle dropdown selection changes
   const handleDropdownChange1 = (value: string) => setProject(value);
   const handleDropdownChange2 = (value: string) => setSubProject(value);
   const handleDropdownChange3 = (value: string) => setActivity(value);
 
-  // Options for the dropdown menus
   const options1 = [
     'Construction Stadium',
     'Construction Studio',
@@ -92,14 +81,12 @@ export default function Page() {
       <Navigation />
       <div className="p-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-        {/* Main heading of the page */}
         <h1
           className="mb-6 m-4 text-3xl font-bold text-balance text-black tracking-tight md:text-2xl lg:text-3xl xl:text-3xl"
           style={{ color: '#190fac' }}
         >
           Projects Dashboard
         </h1>
-        {/* Section for displaying statistics */}
         <section
           className="p-8 pb-8 bg-white m-4 border shadow-sm rounded-2xl"
           aria-labelledby="statistics-heading"
@@ -132,7 +119,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Form for calculating project delay */}
         <form
           onSubmit={handleSubmit}
           className="bg-white border p-4 pt-6 m-4 rounded-2xl shadow-sm"
@@ -147,7 +133,6 @@ export default function Page() {
             </h2>
             <div className="flex gap-4 mb-0 mt-4">
               <div className="w-full md:w-1/2">
-                {/* Dropdowns for project, sub-project, and activity selection */}
                 <CustomDropdown
                   label="Project"
                   options={options1}
@@ -172,7 +157,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Date input fields for start and end dates */}
             <DateInput
               id="start-date"
               label="Planned Start Date"
@@ -189,7 +173,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Buttons for submitting the form or clearing the input */}
           <div className="flex space-x-4 mt-10 mb-12 ml-4">
             <button
               type="submit"
@@ -201,7 +184,6 @@ export default function Page() {
             <button
               type="button"
               onClick={() => {
-                // Reset all fields to empty
                 setStartDate('');
                 setEndDate('');
                 setMessage('');
@@ -209,6 +191,7 @@ export default function Page() {
                 setProject('');
                 setSubProject('');
                 setActivity('');
+                setShowEmailPanel(false);
               }}
               className="p-3 px-6 bg-gray-50 text-md font-semibold text-gray rounded-md shadow-sm hover:ring hover:ring-gray-300 hover:ring-2 hover:ring-offset-4 hover:ring-offset-gray-50 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               aria-label="Clear Form"
@@ -217,7 +200,6 @@ export default function Page() {
             </button>
           </div>
 
-          {/* Display the result message after calculation */}
           {message && (
             <div
               className={`flex space-x-4 mt-10 mb-12 ml-4 mr-4 justify-between ${
@@ -230,20 +212,41 @@ export default function Page() {
             >
               <p className="text-lg font-semibold mt-3">{message}</p>
               {isCalculated && (
-                <button
-                  type="button"
-                  onClick={handleViewTimeline}
-                  className="p-3 px-6 bg-indigo-100 border border-solid border-indigo-300 text-md font-semibold text-blue-800 rounded-md leading-6 shadow-sm hover:bg-indigo-50 hover:ring hover:ring-indigo-600 hover:ring-3 hover:ring-offset-4 hover:ring-offset-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  aria-label="View Updated Project Timeline"
-                >
-                  <span aria-hidden="true">✦</span> View Updated Project
-                  Timeline
-                </button>
+                <div className="flex space-x-4">
+                  <button
+                    type="button"
+                    onClick={handleViewTimeline}
+                    className="p-3 px-6 bg-indigo-100 border border-solid border-indigo-300 text-md font-semibold text-blue-800 rounded-md leading-6 shadow-sm hover:bg-indigo-50 hover:ring hover:ring-indigo-600 hover:ring-2 hover:ring-offset-4 hover:ring-offset-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    aria-label="View Updated Project Timeline"
+                  >
+                    <span aria-hidden="true">✦</span> View Updated Project
+                    Timeline
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowEmailPanel(true)}
+                    className="p-3 px-6 bg-gray-100 border border-solid border-gray-300 text-md font-semibold text-gray-700 rounded-md leading-6 shadow-sm hover:bg-gray-50 hover:ring hover:ring-gray-400 hover:ring-2 hover:ring-offset-4 hover:ring-offset-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                    aria-label="Generate Email"
+                  >
+                    <span aria-hidden="true">✉️</span> Generate Email
+                  </button>
+                </div>
               )}
             </div>
           )}
         </form>
       </div>
+
+      {showEmailPanel && (
+        <EmailGenerator
+          startDate={startDate}
+          endDate={endDate}
+          project={project}
+          subProject={subProject}
+          activity={activity}
+          onClose={() => setShowEmailPanel(false)}
+        />
+      )}
     </main>
   );
 }
