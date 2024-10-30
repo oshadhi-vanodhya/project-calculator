@@ -143,7 +143,7 @@ export default function Page() {
               id="delay-calculation-heading"
               className="text-xl font-bold mb-8 xl:text-2xl"
             >
-              Calculate Project Delay
+              Update Project Details
             </h2>
             <div className="flex gap-4 mb-0 mt-4">
               <div className="w-full md:w-1/2">
@@ -182,7 +182,7 @@ export default function Page() {
             />
             <DateInput
               id="end-date"
-              label="Actual End Date"
+              label="Actual Start Date"
               value={endDate}
               onChange={setEndDate}
               required
