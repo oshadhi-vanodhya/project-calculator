@@ -3,8 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { project, subProject, activity, startDate, endDate, daysDiff } =
-      body;
+    const { project, subProject, activity, startDate, endDate, daysDiff } = body;
 
     const prompt = `Generate a professional project delay notification email with the following details:
     - Project: ${project}
@@ -25,8 +24,7 @@ export async function POST(request: Request) {
         messages: [
           {
             role: 'system',
-            content:
-              'You are a professional project manager writing a delay notification email.',
+            content: 'You are a professional project manager writing a delay notification email.',
           },
           { role: 'user', content: prompt },
         ],
@@ -37,18 +35,6 @@ export async function POST(request: Request) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Error from OpenAI API:', errorData);
-
-      // Specific error handling for quota issues
-      if (errorData.error && errorData.error.code === 'insufficient_quota') {
-        return NextResponse.json(
-          {
-            error:
-              'You have exceeded your API usage quota. Please check your billing details.',
-          },
-          { status: 429 }
-        );
-      }
-
       return NextResponse.json(
         { error: 'Failed to generate email from OpenAI API' },
         { status: response.status }
@@ -60,15 +46,6 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'No email generated' },
         { status: 500 }
-      );
-    }
-    if (errorData.error && errorData.error.code === 'insufficient_quota') {
-      return NextResponse.json(
-        {
-          error:
-            'You have exceeded your API usage quota. Please check your billing details.',
-        },
-        { status: 429 }
       );
     }
 

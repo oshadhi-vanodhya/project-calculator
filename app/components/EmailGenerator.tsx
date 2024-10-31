@@ -6,59 +6,9 @@ interface EmailGeneratorProps {
   project: string;
   subProject: string;
   activity: string;
+  clientName: string; // New prop for client name
   onClose: () => void;
 }
-
-const emailTemplates = {
-  default: (
-    clientName: string,
-    daysDiff: number,
-    project: string,
-    subProject: string,
-    activity: string,
-    startDate: string,
-    endDate: string
-  ) => `
-    Subject: Project Delay Notification for ${project}
-
-    Dear ${clientName},
-
-    I hope this message finds you well.
-
-    I am writing to inform you about a delay in the ${project}, specifically concerning the ${subProject} related to the activity of ${activity}. The details are as follows:
-
-    - **Planned Start Date:** ${startDate}
-    - **Actual Start Date:** ${endDate}
-    - **Delay Duration:** ${daysDiff} days
-
-    **Explanation of the Delay**
-    The delay has been caused by [insert clear explanation of the reasons for the delay, e.g., unforeseen circumstances, supply chain issues, or resource availability]. We understand the importance of timely project delivery and sincerely apologize for this setback.
-
-    **Impact Assessment**
-    This delay will impact the overall project timeline in the following ways:
-    - [Bullet point detailing specific impacts, e.g., delays in subsequent phases, potential cost implications, etc.]
-    - [Another bullet point if necessary]
-
-    **Mitigation Steps**
-    To address this situation, we are implementing the following mitigation steps:
-    - [Bullet point detailing the actions being taken, e.g., reallocating resources, increasing work hours, engaging additional contractors, etc.]
-    - [Another bullet point if necessary]
-
-    **Next Actions**
-    We are committed to keeping you updated on our progress. The next steps include:
-    - [Bullet point indicating what the client can expect next, e.g., regular updates, scheduled meetings, etc.]
-    - [Another bullet point if necessary]
-
-    Thank you for your understanding and support during this challenging time. Please feel free to reach out if you have any questions or require further clarification.
-
-    Best regards,
-
-    [Your Name]  
-    Project Manager  
-    [Your Company]  
-    [Your Contact Information]
-  `,
-};
 
 export default function EmailGenerator({
   startDate,
@@ -66,6 +16,7 @@ export default function EmailGenerator({
   project,
   subProject,
   activity,
+  clientName,
   onClose,
 }: EmailGeneratorProps) {
   const [email, setEmail] = useState('');
@@ -73,38 +24,60 @@ export default function EmailGenerator({
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const generateEmail = () => {
+    const generateEmail = async () => {
       setIsLoading(true);
       setError('');
 
       try {
-        const timeDiff =
-          new Date(endDate).getTime() - new Date(startDate).getTime();
+        const timeDiff = new Date(endDate).getTime() - new Date(startDate).getTime();
         const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        const clientName = '[Client Name]'; // Replace with actual client name logic
 
-        // Generate the email content using the template
-        const emailContent = emailTemplates.default(
-          clientName,
-          daysDiff,
-          project,
-          subProject,
-          activity,
-          startDate,
-          endDate
-        );
+        const prompt = `Generate a professional project delay notification email with the following details:
+          - Project: ${project}
+          - Sub-project: ${subProject}
+          - Activity: ${activity}
+          - Planned Start Date: ${startDate}
+          - Actual Start Date: ${endDate}
+          - Delay: ${daysDiff} days
 
-        setEmail(emailContent);
+          The email should include:
+          1. A professional greeting
+          2. Clear explanation of the delay
+          3. Impact assessment
+          4. Mitigation steps
+          5. Next actions
+          6. Professional closing
+
+          Format the email with proper spacing and bullet points.`;
+
+        const response = await fetch('/api/generate-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ project, subProject, activity, startDate, endDate, daysDiff }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to generate email');
+        }
+
+        const data = await response.json();
+        console.log('Generated Email:', data.email); // Log the email content
+        setEmail(data.email);
+        console.log('Email state:', email);
+
       } catch (error) {
         setError('Failed to generate email. Please try again.');
         setEmail('');
+
       } finally {
         setIsLoading(false);
       }
     };
 
     generateEmail();
-  }, [startDate, endDate, project, subProject, activity]);
+  }, [startDate, endDate, project, subProject, activity, clientName]);
 
   return (
     <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-6 overflow-y-auto">
@@ -138,14 +111,22 @@ export default function EmailGenerator({
             <span className="ml-2">Generating email...</span>
           </div>
         ) : error ? (
-          <div className="text-red-600 p-4 rounded-lg bg-red-50">{error}</div>
+          <div className="text-red-600 p-4 rounded-lg bg-red-50">
+            {error}
+          </div>
         ) : (
           <>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <pre className="whitespace-pre-wrap font-sans text-sm text-left">
-                {email.replace(/\*\*(.*?)\*\*/g, '**$1**')}
-              </pre>
-            </div>
+
+            {email ? (
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <pre className="whitespace-pre-wrap font-sans text-sm text-left">
+                  {email}
+                </pre>
+              </div>
+            ) : (
+              <div>No email generated yet.</div>
+            )}
+
             <button
               onClick={() => navigator.clipboard.writeText(email)}
               className="mt-4 w-full border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"

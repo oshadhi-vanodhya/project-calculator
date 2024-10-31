@@ -158,14 +158,14 @@ export default function Page() {
             </div>
 
             <DateInput
-              id="start-date"
+              id="startDate"
               label="Planned Start Date"
               value={startDate}
               onChange={setStartDate}
               required
             />
             <DateInput
-              id="end-date"
+              id="endDate"
               label="Actual Start Date"
               value={endDate}
               onChange={setEndDate}
@@ -238,14 +238,18 @@ export default function Page() {
       </div>
 
       {showEmailPanel && (
-        <EmailGenerator
-          startDate={startDate}
-          endDate={endDate}
-          project={project}
-          subProject={subProject}
-          activity={activity}
-          onClose={() => setShowEmailPanel(false)}
+        
+      <EmailGenerator
+        startDate="2024-10-01"
+        endDate="2024-10-15"
+        project="Website Redesign"
+        subProject="Landing Page"
+        activity="Content Creation"
+        clientName="ABC Corp"
+        onClose={() => setShowEmailPanel(false)}
         />
+    
+        
       )}
     </main>
   );
