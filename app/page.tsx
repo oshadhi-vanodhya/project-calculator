@@ -114,7 +114,7 @@ export default function Page() {
               title="Late Penalties (liquidated damages)"
               value="$64.9M"
               bgColor="bg-yellow-100"
-              textColor="text-yellow-600"
+              textColor="text-yellow-700"
             />
           </div>
         </section>
