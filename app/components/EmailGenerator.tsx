@@ -80,10 +80,10 @@ export default function EmailGenerator({
   }, [startDate, endDate, project, subProject, activity, clientName]);
 
   return (
-    <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-6 overflow-y-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <span>AI Email Generator</span>
+    <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto">
+      <div className="flex justify-between items-center mb-6 mt-4">
+        <h2 className="text-xl font-bold flex items-center gap-2 text-indigo-800 ml-4">
+          <span>✨ AI Email Generator</span>
         </h2>
         <button
           onClick={onClose}
@@ -104,19 +104,18 @@ export default function EmailGenerator({
         </button>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-8">
         {isLoading ? (
-          <div className="flex items-center justify-center p-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-            <span className="ml-2">Generating email...</span>
-          </div>
+                <div className="flex items-center justify-center pt-8">
+                <div className="animate-spin spin"></div>
+                <span className="text-md font-semibold ml-4 ">Generating email...</span>
+              </div>
         ) : error ? (
           <div className="text-red-600 p-4 rounded-lg bg-red-50">
             {error}
           </div>
         ) : (
           <>
-
             {email ? (
               <div className="bg-gray-50 p-4 rounded-lg">
                 <pre className="whitespace-pre-wrap font-sans text-sm text-left">
@@ -126,7 +125,6 @@ export default function EmailGenerator({
             ) : (
               <div>No email generated yet.</div>
             )}
-
             <button
               onClick={() => navigator.clipboard.writeText(email)}
               className="mt-4 w-full border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
@@ -147,6 +145,6 @@ export default function EmailGenerator({
           </>
         )}
       </div>
-    </div>
+    </div >
   );
 }

@@ -219,17 +219,19 @@ export default function Page() {
                     className="p-3 px-6 bg-indigo-100 border border-solid border-indigo-300 text-md font-semibold text-blue-800 rounded-md leading-6 shadow-sm hover:bg-indigo-50 hover:ring hover:ring-indigo-600 hover:ring-2 hover:ring-offset-4 hover:ring-offset-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     aria-label="View Updated Project Timeline"
                   >
-                    <span aria-hidden="true">✦</span> View Updated Project
+                    <span aria-hidden="true"></span> View Updated Project
                     Timeline
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowEmailPanel(true)}
-                    className="p-3 px-6 bg-gray-100 border border-solid border-gray-300 text-md font-semibold text-gray-700 rounded-md leading-6 shadow-sm hover:bg-gray-50 hover:ring hover:ring-gray-400 hover:ring-2 hover:ring-offset-4 hover:ring-offset-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                    className="p-3 px-6 bg-gradient-to-r from-blue-200 to-purple-400 border border-solid border-purple-300 text-md font-semibold text-black hover:text-purple-800 rounded-md leading-6 shadow-sm hover:bg-purple-50 hover:ring hover:ring-purple-500 hover:ring-2 hover:ring-offset-4 hover:ring-offset-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-200"
                     aria-label="Generate Email"
                   >
-                    <span aria-hidden="true">✉️</span> Generate Email
+                    <span aria-hidden="true">✦ </span>Generate Email
                   </button>
+
+
                 </div>
               )}
             </div>
@@ -240,12 +242,12 @@ export default function Page() {
       {showEmailPanel && (
         
       <EmailGenerator
-        startDate="2024-10-01"
-        endDate="2024-10-15"
-        project="Website Redesign"
-        subProject="Landing Page"
-        activity="Content Creation"
-        clientName="ABC Corp"
+        startDate={startDate}
+        endDate={endDate}
+        project={project}
+        subProject={subProject}
+        activity={activity}
+        clientName="ABC Construction Pvt Ltd"
         onClose={() => setShowEmailPanel(false)}
         />
     
