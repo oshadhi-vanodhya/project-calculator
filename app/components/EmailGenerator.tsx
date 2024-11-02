@@ -6,7 +6,7 @@ interface EmailGeneratorProps {
   project: string;
   subProject: string;
   activity: string;
-  clientName: string; // New prop for client name
+  clientName: string; // **New prop for client name**
   onClose: () => void;
 }
 
@@ -57,8 +57,27 @@ export default function EmailGenerator({
     generateEmail();
   }, [startDate, endDate, project, subProject, activity, clientName]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
   return (
-    <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto" role="dialog" aria-labelledby="email-generator-title" aria-modal="true">
+    <div 
+      className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto" 
+      role="dialog" 
+      aria-labelledby="email-generator-title" 
+      aria-modal="true" 
+      tabIndex={0} // Make the div focusable
+    >
       <header className="flex justify-between items-center mb-6 mt-4">
         <h2 id="email-generator-title" className="text-xl font-bold flex items-center gap-2 text-indigo-800 ml-4">
           <span>✨ AI Email Generator</span>
@@ -83,7 +102,7 @@ export default function EmailGenerator({
         </button>
       </header>
 
-      <div className="mt-8" aria-live="polite">
+      <div className="mt-4 ml-4" aria-live="polite">
         {isLoading ? (
           <div className="flex items-center justify-center pt-8">
             <div className="animate-spin spin" aria-hidden="true"></div>
@@ -96,7 +115,7 @@ export default function EmailGenerator({
         ) : (
           <>
             {email ? (
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-100 p-6 text-black-800 rounded-lg">
                 <pre className="whitespace-pre-wrap font-sans text-sm text-left">
                   {email}
                 </pre>
@@ -107,7 +126,7 @@ export default function EmailGenerator({
             <button
               onClick={() => navigator.clipboard.writeText(email)}
               className="mt-4 w-full border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
-              disabled={!email} // Disable button if no email
+              disabled={!email} // **Disable button if no email**
               aria-label="Copy email to clipboard"
             >
               <svg
