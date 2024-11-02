@@ -203,8 +203,8 @@ export default function Page() {
           {message && (
             <div
               className={`flex space-x-4 mt-10 mb-12 ml-4 mr-4 justify-between ${isCalculated
-                  ? 'p-4 text-gray-900 bg-indigo-50'
-                  : 'p-0 w-3/4 text-red-600'
+                ? 'p-4 text-gray-900 bg-indigo-50'
+                : 'p-0 w-3/4 text-red-600'
                 }`}
               role="alert"
               aria-live="polite"
@@ -222,16 +222,16 @@ export default function Page() {
                     Timeline
                   </button>
                   <button
-  type="button"
-  onClick={() => setShowEmailPanel(true)}
-  className="relative p-3 px-6 bg-white transition-opacity duration-300 hover:bg-gradient-to-r from-blue-200 to-purple-500 border border-solid border-purple-300 text-md font-semibold text-purple rounded-md leading-6 shadow-sm transition-all duration-300 ease-in-out group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-200 hover:ring hover:ring-purple-400 hover:ring-2 hover:ring-offset-2 hover:ring-offset-purple-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-purple-100"
-  style={{ color: 'purple', transition: 'color 0.3s' }} // Initial text color
-  onMouseEnter={(e) => e.currentTarget.style.color = 'black'} // On hover
-  onMouseLeave={(e) => e.currentTarget.style.color = 'purple'} // Reset on leave
-  aria-label="Generate Email"
->
-  <span aria-hidden="true">✦ </span>Generate Email with AI
-</button>
+                    type="button"
+                    onClick={() => setShowEmailPanel(true)}
+                    className="relative p-3 px-6 bg-white transition-opacity duration-300 hover:bg-gradient-to-r from-blue-200 to-purple-500 border border-solid border-purple-300 text-md font-semibold text-purple rounded-md leading-6 shadow-sm transition-all duration-300 ease-in-out group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-200 hover:ring hover:ring-purple-400 hover:ring-2 hover:ring-offset-2 hover:ring-offset-purple-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-purple-100"
+                    style={{ color: 'purple', transition: 'color 0.3s' }} // Initial text color
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'black'} // On hover
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'purple'} // Reset on leave
+                    aria-label="Generate Email"
+                  >
+                    <span aria-hidden="true">✦ </span>Generate Email with AI
+                  </button>
 
 
 
