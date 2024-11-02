@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,9 +8,8 @@
   --background-start-rgb: 249, 250, 251;
   --background-end-rgb: 249, 249, 249;
 }
-@layer base {
 
-}
+@layer base {}
 
 
 @media (prefers-color-scheme: dark) {
@@ -25,11 +23,7 @@
 body {
   color: #000000;
   height: 100%;
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
-

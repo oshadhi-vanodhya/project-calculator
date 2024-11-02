@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import './EmailGenerator.css'; // Adjust the path as necessary
+
 
 interface EmailGeneratorProps {
   startDate: string;
@@ -71,11 +73,12 @@ export default function EmailGenerator({
   }, [onClose]);
 
   return (
-    <div 
-      className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto" 
-      role="dialog" 
-      aria-labelledby="email-generator-title" 
-      aria-modal="true" 
+
+    <div
+      className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto"
+      role="dialog"
+      aria-labelledby="email-generator-title"
+      aria-modal="true"
       tabIndex={0} // Make the div focusable
     >
       <header className="flex justify-between items-center mb-6 mt-4">
@@ -105,7 +108,7 @@ export default function EmailGenerator({
       <div className="mt-4 ml-4" aria-live="polite">
         {isLoading ? (
           <div className="flex items-center justify-center pt-8">
-            <div className="animate-spin spin" aria-hidden="true"></div>
+            <div className="gradient-spinner spin" aria-hidden="true"></div>
             <span className="text-md font-semibold ml-4">Generating email...</span>
           </div>
         ) : error ? (

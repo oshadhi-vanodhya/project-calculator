@@ -1,0 +1,23 @@
+.gradient-spinner {
+    width: 56px;
+    height: 56px;
+    border-radius: 80%;
+    border: 4px solid transparent;
+    border-top: 4px solid transparent;
+    /* Hide top border for effect */
+    background-image: linear-gradient(white, white),
+        linear-gradient(25deg, #5716da, #79b3f9);
+    background-clip: padding-box, border-box;
+    /* Create layered effect */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
