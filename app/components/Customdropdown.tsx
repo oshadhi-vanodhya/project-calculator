@@ -113,9 +113,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           {/* Show selected option or placeholder */}
           {/* Dropdown icon */}
           <svg
-            className={`w-5 h-5 transform transition-transform ${
-              isOpen ? 'rotate-180' : ''
-            }`}
+            className={`w-5 h-5 transform transition-transform ${isOpen ? 'rotate-180' : ''
+              }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -140,11 +139,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
             {options.map((option, index) => (
               <div
                 key={option}
-                className={`cursor-pointer p-4 ${
-                  focusedIndex === index
+                className={`cursor-pointer p-4 ${focusedIndex === index
                     ? 'bg-gray-50 hover:font-semibold hover:bg-gray-50 hover:text-indigo-600'
                     : ''
-                }`}
+                  }`}
                 role="option"
                 tabIndex={0}
                 onClick={() => handleOptionClick(option)}
