@@ -223,13 +223,14 @@ export default function Page() {
                     Timeline
                   </button>
                   <button
-                    type="button"
-                    onClick={() => setShowEmailPanel(true)}
-                    className="p-3 px-6 bg-gradient-to-r from-blue-200 to-purple-400 border border-solid border-purple-300 text-md font-semibold text-black hover:text-purple-800 rounded-md leading-6 shadow-sm hover:bg-purple-50 hover:ring hover:ring-purple-500 hover:ring-2 hover:ring-offset-4 hover:ring-offset-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-200"
-                    aria-label="Generate Email"
-                  >
-                    <span aria-hidden="true">✦ </span>Generate Email
-                  </button>
+  type="button"
+  onClick={() => setShowEmailPanel(true)}
+  className="relative p-3 px-6 bg-white transition-opacity duration-300  hover:text-indigo-800 hover:bg-gradient-to-r from-blue-200 to-purple-400 border border-solid border-purple-300 text-md font-semibold text-purple rounded-md  hover:text-black leading-6 shadow-sm transition-all duration-300 ease-in-out group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-200"
+  aria-label="Generate Email"
+>
+  <span aria-hidden="true">✦ </span>Generate Email
+</button>
+
 
 
                 </div>

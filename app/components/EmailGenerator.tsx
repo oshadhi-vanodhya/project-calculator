@@ -32,24 +32,6 @@ export default function EmailGenerator({
         const timeDiff = new Date(endDate).getTime() - new Date(startDate).getTime();
         const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-        const prompt = `Generate a professional project delay notification email with the following details:
-          - Project: ${project}
-          - Sub-project: ${subProject}
-          - Activity: ${activity}
-          - Planned Start Date: ${startDate}
-          - Actual Start Date: ${endDate}
-          - Delay: ${daysDiff} days
-
-          The email should include:
-          1. A professional greeting
-          2. Clear explanation of the delay
-          3. Impact assessment
-          4. Mitigation steps
-          5. Next actions
-          6. Professional closing
-
-          Format the email with proper spacing and bullet points.`;
-
         const response = await fetch('/api/generate-email', {
           method: 'POST',
           headers: {
@@ -63,14 +45,10 @@ export default function EmailGenerator({
         }
 
         const data = await response.json();
-        console.log('Generated Email:', data.email); // Log the email content
         setEmail(data.email);
-        console.log('Email state:', email);
-
-      } catch (error) {
+      } catch {
         setError('Failed to generate email. Please try again.');
         setEmail('');
-
       } finally {
         setIsLoading(false);
       }
@@ -80,9 +58,9 @@ export default function EmailGenerator({
   }, [startDate, endDate, project, subProject, activity, clientName]);
 
   return (
-    <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto">
-      <div className="flex justify-between items-center mb-6 mt-4">
-        <h2 className="text-xl font-bold flex items-center gap-2 text-indigo-800 ml-4">
+    <div className="fixed right-0 top-0 h-full w-1/3 bg-white border-l border-gray-200 shadow-lg p-4 overflow-y-auto" role="dialog" aria-labelledby="email-generator-title" aria-modal="true">
+      <header className="flex justify-between items-center mb-6 mt-4">
+        <h2 id="email-generator-title" className="text-xl font-bold flex items-center gap-2 text-indigo-800 ml-4">
           <span>✨ AI Email Generator</span>
         </h2>
         <button
@@ -98,20 +76,21 @@ export default function EmailGenerator({
             strokeWidth="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
-      </div>
+      </header>
 
-      <div className="mt-8">
+      <div className="mt-8" aria-live="polite">
         {isLoading ? (
-                <div className="flex items-center justify-center pt-8">
-                <div className="animate-spin spin"></div>
-                <span className="text-md font-semibold ml-4 ">Generating email...</span>
-              </div>
+          <div className="flex items-center justify-center pt-8">
+            <div className="animate-spin spin" aria-hidden="true"></div>
+            <span className="text-md font-semibold ml-4">Generating email...</span>
+          </div>
         ) : error ? (
-          <div className="text-red-600 p-4 rounded-lg bg-red-50">
+          <div className="text-red-600 p-4 rounded-lg bg-red-50" role="alert">
             {error}
           </div>
         ) : (
@@ -128,6 +107,8 @@ export default function EmailGenerator({
             <button
               onClick={() => navigator.clipboard.writeText(email)}
               className="mt-4 w-full border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+              disabled={!email} // Disable button if no email
+              aria-label="Copy email to clipboard"
             >
               <svg
                 className="w-5 h-5"
@@ -137,6 +118,7 @@ export default function EmailGenerator({
                 strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
               </svg>
@@ -145,6 +127,6 @@ export default function EmailGenerator({
           </>
         )}
       </div>
-    </div >
+    </div>
   );
 }
